@@ -1,0 +1,42 @@
+/*Global*/
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+/*Whole body*/
+body {
+    background-color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.statement{
+    font-size: 2rem;
+    text-align: center;
+    background-color: grey;
+    padding: 1em;
+}
+
+.wrapper{
+    padding: 1em;
+    text-align: center;
+    background-color: burlywood;
+
+    .country{
+        text-align: center;
+        padding: 0.5em;
+        margin: 0.5em;
+        min-width: 250px;
+    }
+
+    .submit{
+        text-align: center;
+        padding: 0.5em;
+        margin: 0.5em;
+        border-radius: 5px;
+        border: solid 0px greenyellow;
+        background-color: greenyellow;
+    }
+}
