@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading country</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script> 
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <header class="statement">Welcome to the club</header>
+
+    <header class="statement"> Welcome to the club </header>
 
     <section class="wrapper">
         <label for="country"> Nationality: </label> <br>
-        <select autocomplete="on" name="country" id="country" class="country" placeholder=" Choose your country"> <br>
+        <select autocomplete="on" name="country" id="country" class="country">
         <option value>Choose your country</option>
         <option value="AU">Australia</option>
         <option value="BR">Brazil</option>
@@ -32,10 +34,12 @@
         <option value="IN">India</option>
         <option value="US">United States</option>
         <option value="UK">United Kingdom</option>
-
-        <button type="submit" class="submit">Load Country</button>
+        <option value=""> </option>
+        </select> <br>
+        <button type="submit" class="submit" onclick="loadCountry()">Load Country</button>
     </section>
 
-
+    <script src="./supaabase.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
