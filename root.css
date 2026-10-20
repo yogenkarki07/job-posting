@@ -1,21 +1,22 @@
 /* global css variables */
 :root{
     /* colors */
-    --primary-color: ;
-    --secondary-color: ;
-    --background-color: ;
+    --primary-color: #D4AF37;
+    --secondary-color: #F3E5AB;
+    --outline-color: #F59E0B;
+    --background-color: #1e1e31;
     /* font-colors */
-    --primary-font-color: ;
-    --secondary-font-color: ;
+    /* --primary-font-color: #f4f6f9;
+    --secondary-font-color: #9b9b11; */
     /* font-size */
-    --primary-font-size: ;
-    --secondary-font-size: ;
-    --header-font-size: ;
+    --primary-font-size: 1rem;
+    --secondary-font-size: 0.5rem;
+    --header-font-size: 2rem;
     /* font-styles */
     --primary-fontstyle: monospace, "Roboto", sans-serif ,arial;
-    --secondary-fontstyle: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    --secondary-fontstyle: "Palatino Linotype", "Book Antiqua", serif;
     /* hover-effect */
-    --hover-effect: ;
+    --hover-effect: #F59E0B ;
 }
 
 
