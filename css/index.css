@@ -63,3 +63,15 @@ header {
   text-align: center;
   color: var(--secondary-color);
 }
+
+/* hr */
+hr{
+    margin: 2em 2em;
+}
+
+.poster{
+  font-size: 3rem;
+  text-align: center;
+  color: var(--primary-color);
+  margin: 1em 1em;
+}

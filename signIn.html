@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/root.css">
+    <link rel="stylesheet" href="./css/signIn.css">
+</head>
+<body>
+        <!-- header-section -->
+     <header> 
+        <p> Post a job vacancy here! </p>
+     </header>
+    
+    <p class="heading"> Must sign-in to post -- job vacancy </p>
+
+    <!-- sign-in forms -->
+     <section class="sign-form">
+        <p class="heading"> Sign-in </p>
+        <form id="form">
+        <label for="email"> Email </label> <br>
+        <input type="email" id="signin-email" class="email" placeholder=" example@gmail.com "> <br>
+        <label for="password"> Password </label> <br>
+        <input type="password" id="signin-password" class="password" placeholder=" •••••••••• "> <br>
+        <button type="button" id="signin-btn" class="button2"> Login </button>
+        <button type="button" id="cancel-btn" class="button2"> Cancel </button>
+        </form>
+        <p class="sub-heading"> New here? <a href="./signUp.html"> Create a new account. </a> </p>
+     </section>
+
+     <hr>
+
+     <section>
+      <p class="heading"> Current user status: </p>
+      <ul class="sign-results"> 
+         <li> Email: None </li>
+         <li> Status: None</li>
+         <li> UID: None</li>
+         <li> Valid Until: -- </li>
+      </ul>
+     </section>
+
+     <hr>
+
+    <script src="./js/signIn.js"> </script>
+
+</body>
+</html>

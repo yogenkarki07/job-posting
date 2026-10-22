@@ -1,54 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Post Jobs</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script> 
-    <link rel="stylesheet" href="./css/root.css">
-    <link rel="stylesheet" href="./css/index.css">
-</head>
-<body>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+    <link rel="stylesheet" href="./css/root.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
     <!-- header-section -->
-     <header> 
-        <p> Need employees? Post here! </p>
-     </header>
-    
-        <p class="heading"> Must Login/Sign-in to post -- job vacancy </p>
+    <header>
+      <p>Need employees? Post here!</p>
+    </header>
 
-     <section class="sign-form">
-        <p class="heading"> Fill up the form </p>
-        <form id="form">
-        <label for="email"> Email </label> <br>
-        <input type="email" id="sIn-email" class="email" placeholder=" example@gmail.com "> <br>
-        <label for="password"> Password </label> <br>
-        <input type="password" id="sIn-password" class="password" placeholder=" •••••••••• "> <br>
-        <button type="button" id="submit" class="button2"> Login </button>
-        <button type="button" id="cancel" class="button2"> Cancel </button>
-        </form>
-        <p class="sub-heading"> New here? <a href="./signUp.js"> Create a new account. </a> </p>
-     </section>
+    <p class="heading">
+      You must be logged in to post a job vancy here.
+      <a href="./signIn.html"> Login ! </a>
+    </p>
 
-     <hr>
+    <hr />
 
-     <section>
-      <p class="heading"> Current user status: </p>
-      <ul class="sign-results"> 
-         <li> Email: None </li>
-         <li> Status: None</li>
-         <li> UID: None</li>
-         <li> Valid Until: -- </li>
+    <p class="poster">Jobs on the board</p>
+
+    <!-- <section class="sign-form">
+      <p class="heading">Fill up the form</p>
+      <form id="form">
+        <label for="email"> Email </label> <br />
+        <input
+          type="email"
+          id="sIn-email"
+          class="email"
+          placeholder=" example@gmail.com "
+        />
+        <br />
+        <label for="password"> Password </label> <br />
+        <input
+          type="password"
+          id="sIn-password"
+          class="password"
+          placeholder=" •••••••••• "
+        />
+        <br />
+        <button type="button" id="submit" class="button2">Login</button>
+        <button type="button" id="cancel" class="button2">Cancel</button>
+      </form>
+      <p class="sub-heading">
+        New here? <a href="./signUp.html"> Create a new account. </a>
+      </p>
+    </section>
+
+    <hr />
+
+    <section>
+      <p class="heading">Current user status:</p>
+      <ul class="sign-results">
+        <li>Email: None</li>
+        <li>Status: None</li>
+        <li>UID: None</li>
+        <li>Valid Until: --</li>
       </ul>
-     </section>
+    </section>
 
-     <hr>
+    <hr />
 
-     <section>
-
-     </section>
-     
+    <section></section> -->
+    
+   <script>
+      //  global variables -- to connect the superbase with this job-posting project
+      const SUPABASE_URL = 'https://mflztvwlwcuwhhbviafh.supabase.co';
+      const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_qG3mfirxgiVPVOsKe4BlmQ_Az470yyi';
+      const db = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    </script>
     <script src="./main.js"></script>
-    <script src="./signUp.html"></script>
-</body>
+  </body>
 </html>
