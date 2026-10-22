@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
     <link rel="stylesheet" href="./css/root.css">
     <link rel="stylesheet" href="./css/signIn.css">
 </head>
@@ -19,12 +21,12 @@
      <section class="sign-form">
         <p class="heading"> Sign-in </p>
         <form id="form">
-        <label for="email"> Email </label> <br>
+        <label for="signin-email""> Email </label> <br>
         <input type="email" id="signin-email" class="email" placeholder=" example@gmail.com "> <br>
-        <label for="password"> Password </label> <br>
+        <label for="signin-password"> Password </label> <br>
         <input type="password" id="signin-password" class="password" placeholder=" •••••••••• "> <br>
-        <button type="button" id="signin-btn" class="button2"> Login </button>
-        <button type="button" id="cancel-btn" class="button2"> Cancel </button>
+        <button type="submit" id="signin-btn" class="button2" onclick="handleSignUp()"> Login </button>
+        <!-- <button type="reset" id="cancel-btn" class="button2"> Cancel </button> -->
         </form>
         <p class="sub-heading"> New here? <a href="./signUp.html"> Create a new account. </a> </p>
      </section>
@@ -34,15 +36,16 @@
      <section>
       <p class="heading"> Current user status: </p>
       <ul class="sign-results"> 
-         <li> Email: None </li>
-         <li> Status: None</li>
-         <li> UID: None</li>
-         <li> Valid Until: -- </li>
+         <li id="uemail"> Email: None </li>
+         <li id="ustatus"> Status: None</li>
+         <li id="uuid"> UID: None</li>
+         <li id="uvalid"> Valid Until: -- </li>
       </ul>
      </section>
 
      <hr>
 
+    <script src="./js/main.js"></script>
     <script src="./js/signIn.js"> </script>
 
 </body>
