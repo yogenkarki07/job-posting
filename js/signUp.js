@@ -87,7 +87,8 @@ async function checkSession(){
   if(error){
     signupMessage.textContent = "Unable to retrieve the authentication session.";
     alert("Unable to retieve the authentication session.");
-    console.error("");
+    updateUserStatus(null, null);
+    console.error("Unable to retieve the authentication session.");
     return;
   }
 
@@ -103,3 +104,11 @@ async function checkSession(){
 checkSession();  //initialize the user status
 
 
+//authentication changes -- listeners
+db.onAuthStateChange((event, session) => {
+  updateUserStatus(
+    session?.user ?? null,
+    session
+  );
+  console.log("Authentication event:", event);
+});
