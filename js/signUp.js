@@ -12,102 +12,129 @@ const userID = document.getElementById("suid");
 const userValidUntil = document.getElementById("svalid");
 
 //updateUserStatus function -- to check whether a user is signed up or not
-function updateUserStatus(user, session){
-  if(!user){
+function updateUserStatus(user, session) {
+  if (!user) {
     userEmail.textContent = "Email: None";
-    userStatus.textContent = "Status: None";
+    userStatus.textContent = "Status: Not authenticated";
     userID.textContent = "UID: None";
     userValidUntil.textContent = "Valid Unit: --";
     return;
   }
 
   userEmail.textContent = `Email: ${user.email ?? "Not available"}`;
-  userStatus.textContent = `Status: ${session ? "Authenticated" : "Email confirmation required / No active session"}`;
   userID.textContent = `UID: ${user.id}`;
+  // userStatus.textContent = `Status: ${session ? "Authenticated" : "Email confirmation required / No active session"}`;
 
-  if(session?.expires_at){
-    const expiryDate = new Date(
-      session?.expires_at * 1000
-    );
-    userValidUntil.textContent = `Valid Until: ${expiryDate.toLocalString()}`;
-  }else{
-    userValidUntil.textContent = "Valid Until: No  session";
+  //check whether session exist
+  if (session && session.expires_at) {
+    userStatus.textContent = "Status: Authenticated";
+
+    const expiryDate = new Date(session.expires_at * 1000);
+
+    userValidUntil.textContent = `Valid Until: ${expiryDate.toLocaleString()}`;
+
+    return;
+  } else{
+    userStatus.textContent = "Status: Not authenticated";
+    userValidUntil.textContent = "Valid Until: --";
   }
+
+  //check email confirmation
+  if(!user.email_confirmed){
+    userStatus.textContent = "Status: email confirmation pending";
+  }else{
+    userStatus.textContent= "Status: registered, not signed in";
+  }
+
 }
 
 //function to signup email to supabase -- Handle Sign Up
-async function handleSignUp() {
-  preventDefault();
+async function handleSignUp(event) {
+  event.preventDefault(); //prevent page reload
+  console.log("signup form submitted !!");
   const email = inputEmail.value.trim();
   const password = inputPassword.value;
-  signupButton.disabled = true;
+  console.log("email entered !");
+  signupButton.disabled = true; //disabled signedup button
   signupMessage.textContent = "Creating your account...";
 
   try {
+    console.log("Sending signup signal to supabase !");
     //call supabase signup method
     const { data, error } = await db.auth.signUp({
       email: email,
       password: password,
     });
 
+    console.log("Signup supabase signal received.");
+
     if (error) {
-      signupMessage.textContext = `"Signup Error: ", ${error.message}`;
+      signupMessage.textContent = `Signup Error: ${error.message}`;
       console.error("Signup error: ", error.message);
       return;
     }
 
+      //check whether session exist
     if (data.session) {
       signupMessage.textContent =
         "Account created successfully. You are signed in.";
+
       updateUserStatus(
-        data.user,
+        data.user, 
         data.session
       );
+
     } else {
       signupMessage.textContent =
-        "Signup request completed. Check your email for confirmation code.";
-        updateUserStatus(
-          data.user,
-          null
-        );
+        "Account created successfully. Please check your email and confirm your account.";
+
+      updateUserStatus(data.user, null);
+
       console.log("Signup response:", data);
     }
-  } catch (error) {
+  } catch (error) {                  //catch unexpected errors
     signupMessage.textContent =
       "An unexpected error occured. Please try again.";
     console.error("Unexpected signup error", error);
   } finally {
-    signupButton.disabled = false;
+    signupButton.disabled = false; //enabled signup button
   }
 }
 
+//connect signup button to signup form
+signupForm.addEventListener(
+  "submit", 
+  handleSignUp
+);
+
 //checkSession function -- check the current authentication session
-async function checkSession(){
-  const{data, error} = await db.auth.getSession();
-  if(error){
-    signupMessage.textContent = "Unable to retrieve the authentication session.";
-    alert("Unable to retieve the authentication session.");
+async function checkSession() {
+
+  const { data, error } = await db.auth.getSession();
+
+  if (error) {
+    signupMessage.textContent =
+      "Unable to retrieve the authentication session.";
+
     updateUserStatus(null, null);
+
     console.error("Unable to retieve the authentication session.");
     return;
   }
 
+  //get current session
   const session = data.session;
 
-  updateUserStatus(
-    session?.user ?? null,
-    session
-  );
-
+  updateUserStatus(session?.user ?? null, session);
+  console.log("session checked !!");
 }
 
-checkSession();  //initialize the user status
-
+checkSession(); //initialize the user status
 
 //authentication changes -- listeners
-db.onAuthStateChange((event, session) => {
+db.auth.onAuthStateChange((event, session) => {
   updateUserStatus(
-    session?.user ?? null,
+    session?.user ?? null, 
     session
   );
   console.log("Authentication event:", event);

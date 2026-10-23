@@ -17,19 +17,18 @@
     <p class="heading"> Must have an account to post -- job vacancy </p>
 
     <!-- sign-up forms -->
-     <form class="sign-form">
+     <form class="sign-form" id="form">
         <p class="heading"> Fill up the form to register</p>
-        <form id="form">
         <label for="signup-email"> Email </label> <br>
-        <input type="email" id="signup-email" class="email" placeholder=" example@gmail.com "> <br>
+        <input type="email" id="signup-email" class="email" placeholder=" example@gmail.com " autocomplete="email" required> <br>
         <label for="signup-password"> Password </label> <br>
-        <input type="password" id="signup-password" class="password" placeholder=" •••••••••• "> <br>
-        <button onclick="handleSignUP()" type="submit" id="signup-btn" class="button2"> sign-up </button>
+        <input type="password" id="signup-password" class="password" placeholder=" •••••••••• " autocomplete="new-password" minlength="8" required> <br>
+        <button type="submit" id="signup-btn" class="button2"> sign-up </button>
         <!-- <button type="reset" id="cancel-btn" class="button2"> Cancel </button> -->
         <!-- signup message  -->
-        <p class="heading" id="signup-message"></p>
+        <p class="heading" id="signup-message" role="status" aria-live="polite"></p>
         <p class="sub-heading"> Already have an account? <a href="./signIn.html"> Login ! </a> </p>
-        </form>
+      </form>
 
      <hr>
 
