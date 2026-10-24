@@ -1,5 +1,5 @@
 //sign-in form variables
-const signinForm = document.getElementById("sign-form");
+const signinForm = document.getElementById("form");
 const inputEmail = document.getElementById("signin-email");
 const inputPassword = document.getElementById("signin-email");
 const loginBtn = document.getElementById("signin-btn");
@@ -18,23 +18,32 @@ function updateUserStatus(user, session){
         userStatus.textContent = "Status: None";
         userID.textContent = "UID: None";
         userValidUntil.textContent = "Valid until: --";
+        return;
     }
 
-    userEmail.textContent = `Email: ${user.email ?? "availabel" }`;
-    userID.textContent = `UID: ${user.uid}`;
+    userEmail.textContent = `Email: ${user.email ?? "Not availabel" }`;
+    userID.textContent = `UID: ${user.uid ?? "Not available"}`;
 
-    //to checck session
-    if(session){
+    //to check session
+    if(!session){
+        userStatus.textContent = "Status: Registered";
+    }
+
+    if(session && session.expires_at){
+
         userStatus.textContent = 'Status: Authenticated';
+
         const sessionExpiryDate = new Date(
             session.expires_at * 100
         );
+
         userValidUntil.textContent = `Valid until: ${sessionExpiryDate.toLocaleString}`
+
         console.log("session checked!");
         return;
     }else{
-            userStatus.textContent = 'Status: Not authenticated';
-            userValidUntil.textContent = "Valid until: --";
+            userStatus.textContent = 'Status: Registered, but not authenticated';
+            userValidUntil.textContent = "Valid until: No active session";
     }
 }
 
@@ -58,23 +67,33 @@ function updateUserStatus(user, session){
 
             //check error
             if(error){
-                message.textContent = `"Sign in failed: " ${error.message}`;
-                console.error("signin failed: ", error.message);
+                message.textContent = `"Sign-in failed: " ${error.message}`;
+                console.error("sign-in failed: ", error.message);
                 //user status remains constant if sign in failed.
                 updateUserStatus(null, null);
                 return;
             }
 
-            //signin success
-            console.log("signin success");
-
-            message.textContent = "Sign in successfull. Welcome back !";
+            //check session
+            if(data.session && data.user){
+                message.textContent = "Sign in successfull. Welcome back !";
 
             //update user status
             updateUserStatus(
                 data.user,
                 data.session
             );
+
+            //signin success
+            console.log("sign-in successfull.");
+
+            }else{
+                message.textContent = "Sign-in completed, but no active session was returned.";
+                updateUserStatus(
+                    data.user ?? null,
+                    null
+                );
+            }
 
         }catch{
             //handles unexpexted error
@@ -94,14 +113,17 @@ function updateUserStatus(user, session){
     //checkSession --- function of check/get session
     async function checkSession(){
 
-        //get current supabase session
+    try {    
+            //get current supabase session
         const{data, error} = await db.auth.getSession();
 
         //check error
         if(error){
             message.textContent = "Failed to retrive authentication session ";
             console.error("Session failed: ", error)
+
             updateUserStatus(null, null);
+
             return;
         }
 
@@ -115,6 +137,12 @@ function updateUserStatus(user, session){
         );
 
         console.log("session checked !!");
+    }catch(error){
+        console.error("Unexpexted error occured", error);
+        updateUserStatus(
+            null, null
+        );
+    }
 
     }
 
@@ -125,8 +153,13 @@ function updateUserStatus(user, session){
 
         console.log("Authentication event", event);
 
+    try{
         updateUserStatus(
             session?.user ?? null,
             session
         );
+    }catch{
+        console.error("unable to update user status", error);
+    }
+
     });
