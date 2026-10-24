@@ -40,11 +40,11 @@ function updateUserStatus(user, session) {
   }
 
   //check email confirmation
-  if(!user.email_confirmed){
-    userStatus.textContent = "Status: email confirmation pending";
-  }else{
-    userStatus.textContent= "Status: registered, not signed in";
-  }
+  // if(!user.email_confirmed_at){
+  //   userStatus.textContent = "Status: email confirmation pending";
+  // }else{
+  //   userStatus.textContent= "Status: registered, not signed in";
+  // }
 
 }
 
@@ -63,7 +63,7 @@ async function handleSignUp(event) {
     //call supabase signup method
     const { data, error } = await db.auth.signUp({
       email: email,
-      password: password,
+      password: password
     });
 
     console.log("Signup supabase signal received.");
@@ -125,7 +125,11 @@ async function checkSession() {
   //get current session
   const session = data.session;
 
-  updateUserStatus(session?.user ?? null, session);
+  updateUserStatus(
+    session?.user ?? null, 
+    session
+  );
+
   console.log("session checked !!");
 }
 
