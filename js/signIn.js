@@ -3,7 +3,8 @@ const signinForm = document.getElementById("form");
 const inputEmail = document.getElementById("signin-email");
 const inputPassword = document.getElementById("signin-email");
 const loginBtn = document.getElementById("signin-btn");
-const message = document.getElementById("signin-message");
+const message = document.getElementById("signInSignOutMsg");
+const logoutBtn = document.getElementById("signout-btn");
 
 //user status -- variables
 const userEmail = document.getElementById("uemail");
@@ -22,7 +23,7 @@ function updateUserStatus(user, session){
     }
 
     userEmail.textContent = `Email: ${user.email ?? "Not availabel" }`;
-    userID.textContent = `UID: ${user.uid ?? "Not available"}`;
+    userID.textContent = `UID: ${user.id ?? "Not available"}`;
 
     //to check session
     if(!session){
@@ -37,7 +38,7 @@ function updateUserStatus(user, session){
             session.expires_at * 100
         );
 
-        userValidUntil.textContent = `Valid until: ${sessionExpiryDate.toLocaleString}`
+        userValidUntil.textContent = `Valid until: ${sessionExpiryDate.toLocaleString()}`
 
         console.log("session checked!");
         return;
@@ -98,7 +99,7 @@ function updateUserStatus(user, session){
         }catch{
             //handles unexpexted error
             message.textContent = "Unexpected error occured. Please try again";
-            console.error("Unexpected signin error", error);
+            console.error("Unexpected signin error: ", error);
         }finally{
             //signin button enabled
             loginBtn.disabled = false;
@@ -138,7 +139,7 @@ function updateUserStatus(user, session){
 
         console.log("session checked !!");
     }catch(error){
-        console.error("Unexpexted error occured", error);
+        console.error("Unexpexted error occured: ", error);
         updateUserStatus(
             null, null
         );
@@ -158,8 +159,44 @@ function updateUserStatus(user, session){
             session?.user ?? null,
             session
         );
-    }catch{
-        console.error("unable to update user status", error);
+    }catch(error){
+        console.error("unable to update user status: ", error);
     }
 
     });
+
+    //sign-out function
+  async function handleSignOut(){
+    console.log("signout button clicked.");
+    logoutBtn.disabled = true;
+    message.textContent = ("Signing out...");
+    try{
+
+        const {error} = await db.auth.signOut();
+
+        //check error
+        if(error){
+            message.textContent = `"Sign-out failed" ${error.message}`;
+            console.error("Sign-out failed. ", error.message);
+            return;
+        }
+
+        message.textContent = "Signout successfull";
+        console.log("Signout successfull");
+
+        //reset user status
+        updateUserStatus(null, null);
+
+    }catch(error){
+        message.textContent = "Unexpected error occured during sign out. ";
+        console.error("Unexpected error occured: ", error);
+    }finally{
+        logoutBtn.disabled = false ;
+    }
+    console.log("signout success !!");
+};
+
+
+logoutBtn.addEventListener(
+    "click", handleSignOut
+);
