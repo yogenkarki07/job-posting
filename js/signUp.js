@@ -40,11 +40,11 @@ function updateUserStatus(user, session) {
   }
 
   //check email confirmation
-  // if(!user.email_confirmed_at){
-  //   userStatus.textContent = "Status: email confirmation pending";
-  // }else{
-  //   userStatus.textContent= "Status: registered, not signed in";
-  // }
+  if(!user.email_confirmed_at){
+    userStatus.textContent = "Status: email confirmation pending";
+  }else{
+    userStatus.textContent= "Status: registered, not signed in";
+  }
 
 }
 

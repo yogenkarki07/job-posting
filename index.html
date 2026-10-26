@@ -14,14 +14,58 @@
       <p>Need employees? Post here!</p>
     </header>
 
-    <p class="heading">
-      You must be logged in to post a job vancy here.
-      <a href="./signIn.html"> Login </a> / <a href="./signUp.html"> Sign - Up </a>
-    </p>
+    <main>
+      <!-- <p class="heading"> Supabase • Jobs </p> -->
+      <p class="heading">
+        You must be logged in to post a job vancy here.
+        <a href="./signIn.html"> Login </a> /
+        <a href="./signUp.html"> Sign - Up </a>
+      </p>
 
-    <hr />
+      <!-- <div class="heading">
+        <span id="log-in-status"> <strong> </strong> </span>
+        <a href="./signIn.html" id="sign-in-link"> Login </a> /
+        <a href="./signUp.html" id="sign-out-link"> Sign - Up </a>        
+      </div> -->
 
-    <p class="poster">Jobs on the board</p>
+      <hr />
+
+      <form class="job-form" id="form">
+        <section class="form-field">
+          <div class="form-section">
+            <label for="title"></label>
+            <input type="text" id="title" placeholder="Junior Software Engineer" required>
+          </div>
+
+          <div class="form-section">
+            <label for="description"></label>
+            <textarea id="description" placeholder="job related requirments such as experience, qualification, skills, etc." required>
+          </div>
+
+          <div class="form-section">
+            <label for="range"> Salary range </label>
+            <div class="range">
+            <input type="number" id="salary-min" placeholder="60000" required>
+            <span class="space">to</span>
+            <input type="number" id="salary-max" placeholder="90000" required>
+            </div>
+            <p class="hint"> E.g. 60,000 to 90,000</p>
+          </div>
+
+          <div class="form-section">
+            <label for="date"> Start Date</label>
+            <input type="date" id="date" required>
+          </div>
+
+          <div class="form-section">
+            <label for="city">City</label>
+            <input type="text" id="city" placeholder="Enter city name" required>
+          </div>
+        </section>
+          <button type="submit" id="post" class="button"> POST </button>
+      </form>
+      <p class="poster">Jobs on the board</p>
+    </main>
 
     <script src="./main.js"></script>
   </body>

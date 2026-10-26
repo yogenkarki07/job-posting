@@ -6,6 +6,7 @@ header {
   text-align: center;
 }
 
+/*heading*/
 .heading {
   font-size: var(--primary-font-size);
   color: var(--primary-color);
