@@ -14,15 +14,11 @@ header {
   text-align: center;
 }
 
-/* form */
+/* form
 .sign-form {
-  display: flexbox;
-  justify-content: center;
-  align-items: center;
-  direction: row;
-  gap: 10px;
-  text-align: center;
+  display: flex;
   color: var(--primary-color);
+  min-width: 750px;
   border: 1px solid var(--primary-color);
   border-radius: 50%;
   padding: 2em 2em;
@@ -57,19 +53,20 @@ header {
     margin: 0.5em;
     margin-bottom: 1em;
   }
-}
+} */
 
 /* results */
-.sign-results {
+/* .sign-results {
   text-align: center;
   color: var(--secondary-color);
-}
+} */
 
 /* hr */
 hr{
     margin: 2em 2em;
 }
 
+/* Poster */
 .poster{
   font-size: 3rem;
   text-align: center;
@@ -79,20 +76,17 @@ hr{
 
 /* job-form */
 .job-form{
-  margin: 1.5em 1.5em;
+  margin: 1.5em 2em;
   padding: 1em 1em;
   border: 1px solid gold;
-  font-size: var(--primary-font-size);
   color: var(--primary-color);
+  max-width: 750px;
+  justify-self: center;
 }
 
 /* form-field */
 .form-field{
   display: inline-block;
-  justify-content: space-evenly;
-  direction: row;
-  text-align: baseline;
-  gap: 20px;
 }
 
 .form-section{
@@ -154,4 +148,14 @@ hr{
 /* job-post-status */
 .jobpost-status{
   margin: 1em 1.5em;
+}
+
+/* job-info-form */
+.job-info-form{
+  margin: 1.5em 2em;
+  padding: 1em 1em;
+  border: 1px solid gold;
+  color: var(--primary-color);
+  max-width: 750px;
+  justify-self: center;
 }
