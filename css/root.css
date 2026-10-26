@@ -29,4 +29,5 @@
 body {
     background-color: var(--background-color);
     font-family: var(--secondary-fontstyle);
+    /* color: var(--primary-color); */
 }

@@ -76,3 +76,82 @@ hr{
   color: var(--primary-color);
   margin: 1em 1em;
 }
+
+/* job-form */
+.job-form{
+  margin: 1.5em 1.5em;
+  padding: 1em 1em;
+  border: 1px solid gold;
+  font-size: var(--primary-font-size);
+  color: var(--primary-color);
+}
+
+/* form-field */
+.form-field{
+  display: inline-block;
+  justify-content: space-evenly;
+  direction: row;
+  text-align: baseline;
+  gap: 20px;
+}
+
+.form-section{
+  margin: 1em 1em;
+  min-width: 700px;
+
+  .title{
+    padding: 0.8em 0.5em;
+    width: 600px;
+    border: 1px solid white;
+    border-radius: 5px;
+  }
+
+  .description{
+    padding: 0.8em 0.5em;
+    width: 600px;
+    border: 1px solid white;
+    border-radius: 5px;
+  }
+
+  .salary{
+    padding: 0.8em 0.5em;
+    width: 600px;
+    border: 1px solid white;
+    border-radius: 5px;
+  }
+
+  .date{
+    padding: 0.8em 0.5em;
+    width: 600px;
+    border: 1px solid white;
+    border-radius: 5px;
+  }
+
+  .city{
+    padding: 0.8em 0.5em;
+    width: 600px;
+    border: 1px solid white;
+    border-radius: 5px;
+  }
+}
+
+/* hint */
+.hint{
+  margin: 1em 0;
+}
+
+/* post button */
+.button{
+  border: 1px solid gold;
+  border-radius: 10px;
+  padding: 0.8em 0.5em;
+  margin: 1em 1em;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  min-width: 65px;
+}
+
+/* job-post-status */
+.jobpost-status{
+  margin: 1em 1.5em;
+}

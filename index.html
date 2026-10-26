@@ -33,36 +33,37 @@
       <form class="job-form" id="form">
         <section class="form-field">
           <div class="form-section">
-            <label for="title"></label>
-            <input type="text" id="title" placeholder="Junior Software Engineer" required>
+            <label for="title">Job Title</label> <br> <br>
+            <input type="text" id="title" class="title" placeholder="Junior Software Engineer" required>
           </div>
 
           <div class="form-section">
-            <label for="description"></label>
-            <textarea id="description" placeholder="job related requirments such as experience, qualification, skills, etc." required>
+            <label for="description">Job Description</label> <br><br>
+            <textarea id="description" class="description" placeholder="Job related requirments" required> </textarea>
           </div>
 
           <div class="form-section">
-            <label for="range"> Salary range </label>
+            <br><label for="salary-min"> Salary Range </label><br><br>
             <div class="range">
-            <input type="number" id="salary-min" placeholder="60000" required>
-            <span class="space">to</span>
-            <input type="number" id="salary-max" placeholder="90000" required>
+            <input type="number" id="salary-min" class="salary" placeholder="60000" required> <br><br>
+            <span class="space">To</span> <br><br>
+            <input type="number" id="salary-max" class="salary" placeholder="90000" required> <br>
             </div>
-            <p class="hint"> E.g. 60,000 to 90,000</p>
+            <p class="hint"> E.g. 60,000 to 90,000</p> <br>
           </div>
 
           <div class="form-section">
-            <label for="date"> Start Date</label>
-            <input type="date" id="date" required>
+            <label for="date"> Start Date </label> <br><br>
+            <input type="date" id="date" class="date" required>
           </div>
 
           <div class="form-section">
-            <label for="city">City</label>
-            <input type="text" id="city" placeholder="Enter city name" required>
+            <label for="city">City</label> <br><br>
+            <input type="text" id="city" class="city" placeholder="Enter city name" required> <br>
           </div>
         </section>
           <button type="submit" id="post" class="button"> POST </button>
+          <p class="jobpost-status"> </p>
       </form>
       <p class="poster">Jobs on the board</p>
     </main>
