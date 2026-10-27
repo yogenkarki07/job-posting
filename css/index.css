@@ -159,3 +159,8 @@ hr{
   max-width: 750px;
   justify-self: center;
 }
+
+/* --hide form -- */
+/* #form{
+  display: none;
+} */

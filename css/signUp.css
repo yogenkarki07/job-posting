@@ -69,3 +69,7 @@ hr{
     margin: 2em 2em;
 }
 
+/* sign-out button 
+#signout-btn{
+   display: none;  /*--- initially hides the button */
+/* }  */

@@ -15,17 +15,13 @@ header {
 
 /* form */
 .sign-form {
-  display: flexbox;
-  justify-content: center;
-  align-items: center;
-  direction: row;
-  gap: 10px;
-  text-align: center;
+  justify-self: center;
   color: var(--primary-color);
   border: 1px solid var(--primary-color);
-  border-radius: 50%;
+  border-radius: 10px;
   padding: 2em 2em;
   margin: 1em 5em;
+  min-width: 600px;
 
   .email {
     border: 1px solid white;
@@ -67,4 +63,9 @@ header {
 /* hr */
 hr{
     margin: 2em 2em;
+}
+
+/* sign-out button  */
+#signout-btn{
+   display: none;  /*--- initially hides the button */
 }

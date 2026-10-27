@@ -34,18 +34,17 @@ function updateUserStatus(user, session) {
     userValidUntil.textContent = `Valid Until: ${expiryDate.toLocaleString()}`;
 
     return;
-  } else{
+  } else {
     userStatus.textContent = "Status: Not authenticated";
     userValidUntil.textContent = "Valid Until: --";
   }
 
   //check email confirmation
-  if(!user.email_confirmed_at){
+  if (!user.email_confirmed_at) {
     userStatus.textContent = "Status: email confirmation pending";
-  }else{
-    userStatus.textContent= "Status: registered, not signed in";
+  } else {
+    userStatus.textContent = "Status: registered, not signed in";
   }
-
 }
 
 //function to signup email to supabase -- Handle Sign Up
@@ -60,10 +59,11 @@ async function handleSignUp(event) {
 
   try {
     console.log("Sending signup signal to supabase !");
+
     //call supabase signup method
     const { data, error } = await db.auth.signUp({
       email: email,
-      password: password
+      password: password,
     });
 
     console.log("Signup supabase signal received.");
@@ -74,15 +74,16 @@ async function handleSignUp(event) {
       return;
     }
 
-      //check whether session exist
+    //check whether session exist
     if (data.session) {
       signupMessage.textContent =
         "Account created successfully. You are signed in.";
 
-      updateUserStatus(
-        data.user, 
-        data.session
-      );
+      //update user status
+      updateUserStatus(data.user, data.session);
+
+      //redirecting towards home page
+      window.location.href = "./index.html";
 
     } else {
       signupMessage.textContent =
@@ -92,7 +93,8 @@ async function handleSignUp(event) {
 
       console.log("Signup response:", data);
     }
-  } catch (error) {                  //catch unexpected errors
+  } catch (error) {
+    //catch unexpected errors
     signupMessage.textContent =
       "An unexpected error occured. Please try again.";
     console.error("Unexpected signup error", error);
@@ -102,14 +104,10 @@ async function handleSignUp(event) {
 }
 
 //connect signup button to signup form
-signupForm.addEventListener(
-  "submit", 
-  handleSignUp
-);
+signupForm.addEventListener("submit", handleSignUp);
 
 //checkSession function -- check the current authentication session
 async function checkSession() {
-
   const { data, error } = await db.auth.getSession();
 
   if (error) {
@@ -125,10 +123,7 @@ async function checkSession() {
   //get current session
   const session = data.session;
 
-  updateUserStatus(
-    session?.user ?? null, 
-    session
-  );
+  updateUserStatus(session?.user ?? null, session);
 
   console.log("session checked !!");
 }
@@ -137,9 +132,6 @@ checkSession(); //initialize the user status
 
 //authentication changes -- listeners
 db.auth.onAuthStateChange((event, session) => {
-  updateUserStatus(
-    session?.user ?? null, 
-    session
-  );
+  updateUserStatus(session?.user ?? null, session);
   console.log("Authentication event:", event);
 });
