@@ -48,3 +48,25 @@ db.auth.onAuthStateChange((event, session) => {
         console.error("Authentication error.", error)
     }
 });
+
+//postJobs function -- function for jobpost and supabase
+async function postJobs(){
+    const{error} = await db.from('job-infos').insert({
+        title: title,
+        description: description,
+        salary_min: min,
+        salary_max: max,
+        start_date: date,
+        city: city,
+        created_by: 
+    });
+
+    if(error){
+        console.error("Failed", error.message);
+        setStatus('Failed', error.message);
+        return;
+    }
+
+    // reload the job FileList, when new job is posted
+    await loadJobs(); 
+}
