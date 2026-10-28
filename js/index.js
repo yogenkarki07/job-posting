@@ -58,7 +58,7 @@ async function postJobs(){
         salary_max: max,
         start_date: date,
         city: city,
-        created_by: 
+        created_by: user_id
     });
 
     if(error){
