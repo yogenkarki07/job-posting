@@ -54,6 +54,7 @@ async function handleSignUp(event) {
   const email = inputEmail.value.trim();
   const password = inputPassword.value;
   console.log("email entered !");
+  
   signupButton.disabled = true; //disabled signedup button
   signupMessage.textContent = "Creating your account...";
 
