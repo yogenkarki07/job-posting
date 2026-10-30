@@ -33,12 +33,12 @@ function updateUserStatus(user, session) {
   if (session && session.expires_at) {
     userStatus.textContent = "Status: Authenticated";
 
-    const sessionExpiryDate = new Date(session.expires_at * 100);
+    const sessionExpiryDate = new Date(session.expires_at * 1000);
 
     userValidUntil.textContent = `Valid until: ${sessionExpiryDate.toLocaleString()}`;
 
     console.log("session checked!");
-    return;
+
   } else {
     userStatus.textContent = "Status: Registered, but not authenticated";
     userValidUntil.textContent = "Valid until: No active session";
@@ -74,7 +74,7 @@ async function handleSignIn(event) {
 
     //check session
     if (data.session && data.user) {
-      message.textContent = "Sign in successfull. Welcome back !";
+      message.innerHTML = `Sign in successfull. <a href="./index.html"> Click Here </a> to post jobs`;
 
       //update user status
       updateUserStatus(data.user, data.session)
@@ -93,7 +93,7 @@ async function handleSignIn(event) {
   } catch {
     //handles unexpexted error
     message.textContent = "Unexpected error occured. Please try again";
-    console.error("Unexpected signin error: ", error);
+    console.error("Unexpected sign-in error: ", error);
   } finally {
     //signin button enabled
     loginBtn.disabled = false;
@@ -129,6 +129,11 @@ async function checkSession() {
     //update button
     signInSignOutButtons(session);
 
+    if(session){
+      message.innerHTML = `Sign in successfull. <a href="./index.html"> Click Here </a> to post jobs`;
+      return;
+    }
+
     console.log("session checked !!");
   } catch (error) {
     console.error("Unexpexted error occured: ", error);
@@ -147,12 +152,16 @@ db.auth.onAuthStateChange((event, session) => {
 
     updateUserStatus(session?.user ?? null, session);
     signInSignOutButtons(session);
-
+    
+    if(session?.user){
+        message.innerHTML = `Sign in successfull. <a href="./index.html"> Click Here </a> to post jobs`;
+        return;
+      }
+      
   } catch (error) {
-
     console.error("unable to update user status: ", error);
-  
-}
+  }
+
 });
 
 //sign-out function
