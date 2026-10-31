@@ -30,6 +30,7 @@ async function checkUserAuthentication() {
   try {
     //retrieve the current supabase session
     const { data, error } = await db.auth.getSession();
+
     if (error) {
       console.error("Authentication error. ", error);
       updateJobFormUI(null);
@@ -55,6 +56,12 @@ db.auth.onAuthStateChange((event, session) => {
   console.log("Authenication event.", event);
   try {
     updateJobFormUI(session);
+
+    //refresh job listings after authentication changes
+    setTimeout( () => {
+      loadJobs();
+    }, 0);
+    
   } catch {
     console.error("Authentication error.", error);
   }
@@ -75,7 +82,7 @@ function getJobDetails() {
     min,
     max,
     date,
-    city,
+    city
   };
 }
 
@@ -154,8 +161,17 @@ async function postJobs() {
 
 }
 
+//click event -- calls postJobs() when user submits the form
+form.addEventListener("submit", async function(event){
+  event.preventDefault();
+  await postJobs();
+})
+
 //retrieves existing jobs and display them on the websites 
 async function loadJobs(){
+
+  // const job = getJobDetails();
+
     try{
         const{data, error} = await db
         .from("job_infos")
@@ -168,9 +184,74 @@ async function loadJobs(){
             return;
         }
 
+        //remove previously displayed job cards
+        jobInfoContainer.replaceChild();
+
+        //check whether database returns any jobs
+        if(!data || data.length === 0){
+          jobInfoContainer.textContent("No jobs are available at the moment.");
+          console.log("No jobs are available at the moment.");
+          return;
+        }
+
+        //loop through every retrieve data from database
+        data.forEach((job) => {
+          //create job card
+          const jobCard = document.createElement("article");
+          jobCard.classList.add("job-card");
+
+          //job title
+          const jobTitle = document.createElement("h3");
+          jobTitle.textContent = job.title;
+
+          //job description
+          const jobDescription = document.createElement("p");
+          jobDescription.textContent = job.description;
+
+          //job salary
+          const jobSalary = document.createElement("P");
+          jobSalary.textContent = `Salary: ${job.salary_min} - ${job.salary_max}`;
+
+          //job date
+          const jobDate = document.createElement("p");
+          jobDate.textContent = `Start date: ${job.date}`;
+
+          //job_city
+          const jobCity = document.createElement("p");
+          jobCity.textContent = `City: ${job.city}`;
+
+          //add all job details inside the jobCard
+          jobCard.append(
+            jobTitle,
+            jobDescription,
+            jobSalary,
+            jobDate,
+            jobCity
+          );
+
+          //added the jobCard into webpage
+          jobInfoContainer.appendChild("jobCard");
+
+        });
+
         console.log("Job loading successfully...");
 
     }catch(error){
-        
+
+        console.error("Unexpected error loading jobs: ", error.message);
+
     }
 }
+
+//check authentication and load jobs listenings
+//initializePage -- functioj
+async function initializePage(){
+
+  //check authentication
+  await checkUserAuthentication();
+
+  //loadJobs
+  await loadJobs();
+}
+
+initializePage();  // initialize -- start the application
